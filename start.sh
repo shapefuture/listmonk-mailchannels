@@ -6,8 +6,7 @@ echo "🚀 Starting Listmonk mail system..."
 # Generate config.toml from environment variables at runtime
 cat << EOF > /app/config.toml
 [app]
-address = "0.0.0.0:9000"
-
+address = "0.0.0.0:8000"
 [db]
 host = "${LISTMONK_db__host:-localhost}"
 port = ${LISTMONK_db__port:-5432}
