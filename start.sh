@@ -10,7 +10,7 @@ address = "0.0.0.0:9000"
 
 [db]
 host = "${LISTMONK_db__host:-localhost}"
-port = ${LISTMONK_db__port:-5432}
+port = 5432
 user = "${LISTMONK_db__user:-listmonk}"
 password = "${LISTMONK_db__password:-listmonk}"
 database = "${LISTMONK_db__database:-listmonk}"
