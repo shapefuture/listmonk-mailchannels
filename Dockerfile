@@ -16,7 +16,6 @@ COPY start.sh .
 RUN chmod +x start.sh 
  
 # Expose ports 
-EXPOSE 9000 2525 
- 
+EXPOSE 8000 9000 2525 
 # Run startup script 
 ENTRYPOINT ["/app/start.sh"] 
