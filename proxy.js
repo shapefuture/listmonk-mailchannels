@@ -2,7 +2,7 @@ const SMTPServer = require('smtp-server').SMTPServer;
 const simpleParser = require('mailparser').simpleParser; 
  
 const WORKER_URL = process.env.WORKER_URL || 'https://mail-relay.wmobilas.workers.dev'; 
-const API_SECRET = process.env.API_SECRET || 'your-super-secret-key-123'; 
+const API_SECRET = process.env.API_SECRET || 'listmonk-hck-vip-2024!@#'; 
  
 const server = new SMTPServer({ 
   disableReverseLookup: true, 
