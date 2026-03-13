@@ -21,8 +21,8 @@ EOF
 # We run install to ensure the database schema exists
 echo "📝 Checking/Installing Listmonk database schema..."
 # In newer versions (v6.0.0+), the command is 'db-setup' or '--install' flag
-# Only run install if DB is not initialized (to avoid type lookup errors)
-/listmonk/listmonk --config /app/config.toml --install 2>/dev/null || echo "Database already initialized, skipping schema install."
+# Auto-answer 'y' to the prompt, ignore errors if DB already exists
+echo y | /listmonk/listmonk --config /app/config.toml --install 2>/dev/null || true
 
 # Start SMTP proxy in background
 echo "📧 Starting SMTP bridge on localhost:2525..."
