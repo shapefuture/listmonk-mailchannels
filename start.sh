@@ -30,8 +30,8 @@ node /app/proxy.js &
 PROXY_PID=$!
 echo "✓ SMTP bridge PID: $PROXY_PID"
 
-# Wait for SMTP bridge to be ready
-sleep 2
+# Brief pause for SMTP bridge
+sleep 1
 
 # Start Listmonk
 echo "🎯 Starting Listmonk on 0.0.0.0:9000..."
