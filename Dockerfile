@@ -8,8 +8,8 @@ WORKDIR /app
 # Copy proxy script 
 COPY proxy.js . 
  
-# Install Node dependencies for proxy 
-RUN npm init -y && npm install smtp-server mailparser 
+# Install Node dependencies for proxy
+RUN cd /app && npm install smtp-server mailparser 
  
 # Copy startup script 
 COPY start.sh . 

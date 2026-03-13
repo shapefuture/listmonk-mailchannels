@@ -1,13 +1,10 @@
-{ 
-  "name": "listmonk-smtp-proxy", 
-  "version": "1.0.0", 
-  "description": "SMTP bridge for MailChannels integration", 
-  "main": "proxy.js", 
-  "scripts": { 
-    "start": "node proxy.js" 
-  }, 
-  "dependencies": { 
-    "smtp-server": "^3.13.2", 
-    "mailparser": "^3.6.5" 
-  } 
-} 
+{
+  "name": "listmonk-smtp-bridge",
+  "version": "1.0.0",
+  "description": "SMTP bridge for Listmonk",
+  "main": "proxy.js",
+  "dependencies": {
+    "smtp-server": "^3.13.0",
+    "mailparser": "^3.6.5"
+  }
+}
