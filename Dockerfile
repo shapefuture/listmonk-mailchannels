@@ -16,7 +16,7 @@ COPY start.sh .
 RUN chmod +x start.sh 
 
 # Create minimal config.toml for Listmonk
-RUN cat > /listmonk/config.toml << 'EOF'
+RUN cat > /app/config.toml << 'EOF'
 [app]
 address = "0.0.0.0:9000"
 

@@ -4,10 +4,10 @@ set -e
 echo "🚀 Starting Listmonk mail system..."
 
 # Initialize Listmonk config if it doesn't exist
-if [ ! -f /listmonk/config.toml ]; then
+if [ ! -f /app/config.toml ]; then
   echo "📝 Installing Listmonk..."
   # Run install with all defaults (press enter for each prompt)
-  yes "" | /listmonk/listmonk install || true
+  yes "" | /listmonk/listmonk --config /app/config.toml install || true
 fi
 
 # Start SMTP proxy in background
@@ -21,7 +21,7 @@ sleep 2
 
 # Start Listmonk in foreground (so Docker keeps running)
 echo "🎯 Starting Listmonk on 0.0.0.0:9000..."
-/listmonk/listmonk
+/listmonk/listmonk --config /app/config.toml
 
 # Cleanup if Listmonk exits
 kill $PROXY_PID 2>/dev/null || true
