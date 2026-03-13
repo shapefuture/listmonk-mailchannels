@@ -6,7 +6,7 @@ echo "🚀 Starting Listmonk mail system..."
 # Generate config.toml from environment variables at runtime
 cat << EOF > /app/config.toml
 [app]
-address = "0.0.0.0:8000"
+address = "0.0.0.0:9000"
 
 [db]
 host = "${LISTMONK_db__host:-localhost}"
@@ -15,12 +15,6 @@ user = "${LISTMONK_db__user:-listmonk}"
 password = "${LISTMONK_db__password:-listmonk}"
 database = "${LISTMONK_db__database:-listmonk}"
 ssl_mode = "${LISTMONK_db__ssl_mode:-require}"
-max_conns = 10
-
-[smtp]
-host = "127.0.0.1"
-port = 2525
-auth_protocol = "none"
 max_conns = 10
 EOF
 
@@ -39,7 +33,7 @@ echo "✓ SMTP bridge PID: $PROXY_PID"
 sleep 2
 
 # Start Listmonk in foreground (so Docker keeps running)
-echo "🎯 Starting Listmonk on 0.0.0.0:8000..."
+echo "🎯 Starting Listmonk on 0.0.0.0:9000..."
 /listmonk/listmonk --config /app/config.toml
 
 # Cleanup if Listmonk exits
