@@ -33,10 +33,9 @@ echo "✓ SMTP bridge PID: $PROXY_PID"
 # Wait for SMTP bridge to be ready
 sleep 2
 
-# Start Listmonk with a small delay to ensure port is ready before health checks
+# Start Listmonk
 echo "🎯 Starting Listmonk on 0.0.0.0:9000..."
-# Give it extra time to bind to port before health checks start
-(sleep 3 && /listmonk/listmonk --config /app/config.toml) &
+/listmonk/listmonk --config /app/config.toml &
 LISTMONK_PID=$!
 
 # Keep container alive
