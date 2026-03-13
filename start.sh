@@ -18,11 +18,9 @@ ssl_mode = "${LISTMONK_db__ssl_mode:-require}"
 max_conns = 10
 EOF
 
-# We run install to ensure the database schema exists
-echo "📝 Checking/Installing Listmonk database schema..."
-# In newer versions (v6.0.0+), the command is 'db-setup' or '--install' flag
-# Auto-answer 'y' to the prompt, ignore errors if DB already exists
-echo y | /listmonk/listmonk --config /app/config.toml --install 2>/dev/null || true
+# Skip install - DB must be pre-initialized or migrations will fail
+# The install command hangs on prompts and fails on corrupted schemas
+echo "📝 Database must be initialized externally. Skipping schema install..."
 
 # Start SMTP proxy in background
 echo "📧 Starting SMTP bridge on localhost:2525..."
