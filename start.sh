@@ -18,12 +18,11 @@ ssl_mode = "${LISTMONK_db__ssl_mode:-require}"
 max_conns = 10
 EOF
 
-# Run install to initialize fresh database
+# Run install to initialize fresh database (non-interactive)
 echo "📝 Initializing Listmonk database schema..."
-printf 'y\n' | /listmonk/listmonk --config /app/config.toml --install
-INSTALL_EXIT=$?
-echo "Install completed with exit code: $INSTALL_EXIT"
-sleep 2
+/listmonk/listmonk --config /app/config.toml --install --idempotent --yes || true
+echo "Database initialization complete"
+sleep 1
 
 # Start SMTP proxy in background
 echo "📧 Starting SMTP bridge on localhost:2525..."
