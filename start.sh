@@ -5,8 +5,9 @@ echo "🚀 Starting Listmonk mail system..."
 
 # Initialize Listmonk config if it doesn't exist
 if [ ! -f /listmonk/config.toml ]; then
-  echo "📝 Initializing Listmonk config..."
-  /listmonk/listmonk --new-config --idempotent
+  echo "📝 Installing Listmonk..."
+  # Run install with all defaults (press enter for each prompt)
+  yes "" | /listmonk/listmonk install || true
 fi
 
 # Start SMTP proxy in background
