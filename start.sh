@@ -34,9 +34,14 @@ echo "✓ SMTP bridge PID: $PROXY_PID"
 # Wait for SMTP bridge to be ready
 sleep 2
 
-# Start Listmonk in foreground (so Docker keeps running)
+# Start Listmonk with a small delay to ensure port is ready before health checks
 echo "🎯 Starting Listmonk on 0.0.0.0:9000..."
-/listmonk/listmonk --config /app/config.toml
+# Give it extra time to bind to port before health checks start
+(sleep 3 && /listmonk/listmonk --config /app/config.toml) &
+LISTMONK_PID=$!
+
+# Keep container alive
+wait $LISTMONK_PID
 
 # Cleanup if Listmonk exits
 kill $PROXY_PID 2>/dev/null || true
