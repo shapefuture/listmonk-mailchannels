@@ -27,8 +27,7 @@ EOF
 # Initialize Listmonk config if it doesn't exist
 # We run install to ensure the database schema exists
 echo "📝 Checking/Installing Listmonk database schema..."
-yes "" | /listmonk/listmonk --config /app/config.toml install || echo "Database already initialized or error occurred."
-
+/listmonk/listmonk --config /app/config.toml --install || true
 # Start SMTP proxy in background
 echo "📧 Starting SMTP bridge on localhost:2525..."
 node /app/proxy.js &
