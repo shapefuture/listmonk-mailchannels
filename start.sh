@@ -3,12 +3,31 @@ set -e
 
 echo "🚀 Starting Listmonk mail system..."
 
+# Generate config.toml from environment variables at runtime
+cat << EOF > /app/config.toml
+[app]
+address = "0.0.0.0:9000"
+
+[db]
+host = "${LISTMONK_db__host:-localhost}"
+port = ${LISTMONK_db__port:-5432}
+user = "${LISTMONK_db__user:-listmonk}"
+password = "${LISTMONK_db__password:-listmonk}"
+database = "${LISTMONK_db__database:-listmonk}"
+ssl_mode = "${LISTMONK_db__ssl_mode:-require}"
+max_conns = 10
+
+[smtp]
+host = "127.0.0.1"
+port = 2525
+auth_protocol = "none"
+max_conns = 10
+EOF
+
 # Initialize Listmonk config if it doesn't exist
-if [ ! -f /app/config.toml ]; then
-  echo "📝 Installing Listmonk..."
-  # Run install with all defaults (press enter for each prompt)
-  yes "" | /listmonk/listmonk --config /app/config.toml install || true
-fi
+# We run install to ensure the database schema exists
+echo "📝 Checking/Installing Listmonk database schema..."
+yes "" | /listmonk/listmonk --config /app/config.toml install || echo "Database already initialized or error occurred."
 
 # Start SMTP proxy in background
 echo "📧 Starting SMTP bridge on localhost:2525..."
