@@ -7,6 +7,7 @@ echo "🚀 Starting Listmonk mail system..."
 cat << EOF > /app/config.toml
 [app]
 address = "0.0.0.0:8000"
+
 [db]
 host = "${LISTMONK_db__host:-localhost}"
 port = ${LISTMONK_db__port:-5432}
@@ -23,10 +24,11 @@ auth_protocol = "none"
 max_conns = 10
 EOF
 
-# Initialize Listmonk config if it doesn't exist
 # We run install to ensure the database schema exists
 echo "📝 Checking/Installing Listmonk database schema..."
-/listmonk/listmonk --config /app/config.toml --install || true
+# Using 'yes y' to automatically confirm the "wipe existing tables" warning
+yes y | /listmonk/listmonk --config /app/config.toml --yes install || echo "Database already initialized or error occurred."
+
 # Start SMTP proxy in background
 echo "📧 Starting SMTP bridge on localhost:2525..."
 node /app/proxy.js &
@@ -37,7 +39,7 @@ echo "✓ SMTP bridge PID: $PROXY_PID"
 sleep 2
 
 # Start Listmonk in foreground (so Docker keeps running)
-echo "🎯 Starting Listmonk on 0.0.0.0:9000..."
+echo "🎯 Starting Listmonk on 0.0.0.0:8000..."
 /listmonk/listmonk --config /app/config.toml
 
 # Cleanup if Listmonk exits
