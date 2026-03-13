@@ -1,8 +1,7 @@
 FROM listmonk/listmonk:latest 
  
 # Install Node.js and npm 
-RUN apt-get update && apt-get install -y nodejs npm && rm -rf /var/lib/apt/lists/* 
- 
+RUN apk add --no-cache nodejs npm bash 
 # Create app directory 
 WORKDIR /app 
  
