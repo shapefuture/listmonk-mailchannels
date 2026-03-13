@@ -1,4 +1,4 @@
-FROM listmonk/listmonk:v5.1.0 
+FROM listmonk/listmonk:latest 
  
 # Install Node.js and npm 
 RUN apk add --no-cache nodejs npm bash 
