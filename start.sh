@@ -19,9 +19,10 @@ max_conns = 10
 EOF
 
 # Run install to initialize fresh database
+# Suppress errors - if DB is already initialized, this will fail but app can still start
 echo "📝 Initializing Listmonk database schema..."
-(echo y; sleep 1) | /listmonk/listmonk --config /app/config.toml --install || true
-sleep 2
+/listmonk/listmonk --config /app/config.toml --install < /dev/null 2>&1 | head -5 || true
+sleep 1
 
 # Start SMTP proxy in background
 echo "📧 Starting SMTP bridge on localhost:2525..."
